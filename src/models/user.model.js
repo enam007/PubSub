@@ -6,10 +6,11 @@ const userSchema = new Schema(
   {
     username: {
       type: String,
-      required: true,
+      //required: true,
       lowercase: true,
       trim: true,
       unique: true,
+      sparse: true,
       index: true,
     },
     email: {
@@ -21,26 +22,26 @@ const userSchema = new Schema(
     },
     fullName: {
       type: String,
-      required: true,
+      //required: true,
       trim: true,
       index: true,
     },
     avatar: {
       type: String, //cloudinary url
-      required: true,
+      //required: true,
     },
-    coverImage: {
-      type: String, //cloudinary url
+    mobile: {
+      type: Number,
+      //required: true,
+      unique: true,
+      sparse: true,
     },
-    watchHistory: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Video",
-      },
-    ],
+    isSeller: {
+      type: Boolean,
+    },
     password: {
       type: String,
-      required: [true, "Password is required"],
+      //required: [true, "Password is required"],
     },
     refreshToken: {
       type: String,
