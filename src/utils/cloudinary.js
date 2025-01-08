@@ -10,13 +10,14 @@ cloudinary.config({
 const uploadOnCloudinary = async (localFilePath) => {
   try {
     if (!localFilePath) return null;
-    const response = cloudinary.uploader.upload(localFilePath, {
+    const response = await cloudinary.uploader.upload(localFilePath, {
       resource_type: "auto",
     });
     console.log(
       "File has been uploaded successfully on cloudinary: ",
       response.url
     );
+    fs.unlinkSync(localFilePath);
     return response;
   } catch (error) {
     fs.unlinkSync(localFilePath);
@@ -24,4 +25,24 @@ const uploadOnCloudinary = async (localFilePath) => {
   }
 };
 
-export { uploadOnCloudinary };
+const uploadMultipleFiles = async (localFilePaths) => {
+  try {
+    if (!localFilePaths || localFilePaths.length === 0) return [];
+
+    const uploadedFiles = [];
+    for (const filePath of localFilePaths) {
+      const response = await uploadOnCloudinary(filePath);
+      if (response) {
+        uploadedFiles.push(response.secure_url);
+      }
+    }
+
+    return uploadedFiles;
+  } catch (error) {
+    console.error("Error uploading Files: ", error);
+    localFilePaths.forEach((filePath) => fs.unlinkSync(filePath));
+    return [];
+  }
+};
+
+export { uploadOnCloudinary, uploadMultipleFiles };

@@ -17,6 +17,10 @@ const transpoter = nodemailer.createTransport({
 
 export const sendOtp = async (email) => {
   try {
+    const storedOtp = await redisClient.get(`otp:${email}`);
+    if (storedOtp) {
+      await redisClient.del(`otp:${email}`);
+    }
     const otp = otpGenerator.generate(6, {
       upperCaseAlphabets: false,
       specialChars: false,

@@ -13,16 +13,27 @@ const productSchema = new Schema(
     price: {
       type: Number,
       required: true,
+      min: 0,
     },
     isAvailable: {
       type: Boolean,
+      default: function () {
+        return this.stock > 0;
+      },
     },
-    stocks: {
+    stock: {
       type: Number,
+      required: true,
+      min: 0,
     },
     category: {
       type: String,
     },
+    images: [
+      {
+        type: String,
+      },
+    ],
     sellerId: {
       type: Schema.Types.ObjectId,
       ref: "Seller",
