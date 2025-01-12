@@ -27,13 +27,19 @@ const productSchema = new Schema(
       min: 0,
     },
     category: {
-      type: String,
+      type: Schema.Types.ObjectId,
+      ref: "Category",
     },
     images: [
       {
         type: String,
       },
     ],
+    itemType: {
+      type: String,
+      enum: ["buy", "sell"],
+      required: true,
+    },
     sellerId: {
       type: Schema.Types.ObjectId,
       ref: "Seller",

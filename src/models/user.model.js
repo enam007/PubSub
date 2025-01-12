@@ -36,9 +36,7 @@ const userSchema = new Schema(
       unique: true,
       sparse: true,
     },
-    isSeller: {
-      type: Boolean,
-    },
+
     isProfileComplete: {
       type: Boolean,
     },

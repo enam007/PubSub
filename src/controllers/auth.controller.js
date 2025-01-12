@@ -33,7 +33,6 @@ const loginUser = asyncHandler(async (req, res) => {
   }
   user = await User.create({
     email,
-    isSeller: false,
     isProfileComplete: false,
   });
 
