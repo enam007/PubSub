@@ -3,7 +3,9 @@ const asyncHandler = (requestHandler) => async (req, res, next) => {
     return await requestHandler(req, res, next);
   } catch (error) {
     const statusCode =
-      error.code && error.code >= 400 && error.code < 600 ? error.code : 500;
+      error.statusCode && error.statusCode >= 400 && error.statusCode < 600
+        ? error.statusCode
+        : 500;
     res.status(statusCode).json({
       success: false,
       message: error.message || "Internal Server Error",

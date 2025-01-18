@@ -8,7 +8,7 @@ const otpTemplate = (otp) => {
 };
 
 const notificationTemplate = (productName, price) => {
-  return `<p>The product "<strong>${productName}</strong>" is now available for <strong>$${price}</strong>.</p>`;
+  return `<p>The product "<strong>${productName}</strong>" is now available for <strong>{price}OMR</strong>.</p>`;
 };
 
 export default { otpTemplate, notificationTemplate };

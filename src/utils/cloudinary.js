@@ -17,11 +17,26 @@ const uploadOnCloudinary = async (localFilePath) => {
       "File has been uploaded successfully on cloudinary: ",
       response.url
     );
+    const url = response.secure_url;
+    const publicId = response.public_id;
     fs.unlinkSync(localFilePath);
-    return response;
+    return { url, publicId };
   } catch (error) {
     fs.unlinkSync(localFilePath);
     return null;
+  }
+};
+
+const deleteFromCloudinary = async (publicId) => {
+  try {
+    if (!publicId) return null;
+    const response = await cloudinary.uploader.destroy(publicId, (result) => {
+      console.log(result);
+    });
+    return true;
+  } catch (error) {
+    console.error(error);
+    return false;
   }
 };
 
@@ -33,6 +48,7 @@ const uploadMultipleFiles = async (localFilePaths) => {
     for (const filePath of localFilePaths) {
       const response = await uploadOnCloudinary(filePath);
       if (response) {
+        console.log(response);
         uploadedFiles.push(response.secure_url);
       }
     }
@@ -45,4 +61,4 @@ const uploadMultipleFiles = async (localFilePaths) => {
   }
 };
 
-export { uploadOnCloudinary, uploadMultipleFiles };
+export { uploadOnCloudinary, uploadMultipleFiles, deleteFromCloudinary };

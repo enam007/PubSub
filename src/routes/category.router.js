@@ -7,6 +7,6 @@ import {
 
 const categoryRouter = Router();
 
-categoryRouter.route("/list").get(authenticateUser, getCategory);
+categoryRouter.route("/list").get(getCategory);
 categoryRouter.route("/add-category").post(authenticateUser, addCategory);
 export default categoryRouter;

@@ -4,7 +4,7 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import { ApiError } from "../utils/ApiError.js";
 
 const getCategory = asyncHandler(async (req, res) => {
-  const { parentCategory } = req.body;
+  const parentCategory = req.query.parentCategory;
 
   const categories = await Category.find(
     parentCategory ? { parentCategory } : { parentCategory: null }
